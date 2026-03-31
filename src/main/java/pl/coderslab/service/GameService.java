@@ -1,10 +1,13 @@
 package pl.coderslab.service;
 
 import org.springframework.stereotype.Service;
+import pl.coderslab.dto.GameRequestDTO;
 import pl.coderslab.dto.GameResponseDTO;
 import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Game;
+import pl.coderslab.repository.CategoryRepository;
 import pl.coderslab.repository.GameRepository;
+import pl.coderslab.repository.PublisherRepository;
 import pl.coderslab.repository.RatingRepository;
 
 import java.util.List;
@@ -14,13 +17,18 @@ import java.util.stream.Collectors;
 public class GameService {
     private final GameRepository gameRepository;
     private final RatingRepository ratingRepository;
+    private final PublisherRepository publisherRepository;
+    private final CategoryRepository categoryRepository;
 
-    public GameService(GameRepository gameRepository, RatingRepository ratingRepository) {
+    public GameService(GameRepository gameRepository, RatingRepository ratingRepository, PublisherRepository publisherRepository, CategoryRepository categoryRepository) {
         this.gameRepository = gameRepository;
         this.ratingRepository = ratingRepository;
+        this.publisherRepository = publisherRepository;
+        this.categoryRepository = categoryRepository;
     }
 
-    public List<GameResponseDTO> getAllGames(){
+    //READ
+    public List<GameResponseDTO> getAllGames() {
         return gameRepository.findAll().stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
@@ -29,7 +37,57 @@ public class GameService {
     public GameResponseDTO getGameById(Long id) {
         return gameRepository.findById(id)
                 .map(this::mapToDTO)
-                .orElseThrow(() -> new RuntimeException("Game not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono gry o id: " + id));
+    }
+
+    //CREATE
+    public GameResponseDTO createGame(GameRequestDTO request) {
+        Game game = new Game();
+        game.setTitle(request.getTitle());
+        game.setMinPlayers(request.getMinPlayers());
+        game.setMaxPlayers(request.getMaxPlayers());
+        game.setComplexityLevel(request.getComplexityLevel());
+        game.setDescription(request.getDescription());
+        game.setAvailable(true);
+
+        // Ustawianie wydawcy
+        if (request.getPublisherId() != null) {
+            game.setPublisher(publisherRepository.findById(request.getPublisherId()).orElse(null));
+        }
+
+        // Ustawianie kategorii
+        if (request.getCategoryIds() != null) {
+            game.setCategories(categoryRepository.findAllById(request.getCategoryIds()));
+        }
+
+        return mapToDTO(gameRepository.save(game));
+    }
+
+    // UPDATE
+    public GameResponseDTO updateGame(Long id, GameRequestDTO request) {
+        Game game = gameRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono gry o id: " + id));
+
+        game.setTitle(request.getTitle());
+        game.setMinPlayers(request.getMinPlayers());
+        game.setMaxPlayers(request.getMaxPlayers());
+        game.setComplexityLevel(request.getComplexityLevel());
+        game.setDescription(request.getDescription());
+
+        if (request.getPublisherId() != null) {
+            game.setPublisher(publisherRepository.findById(request.getPublisherId()).orElse(null));
+        }
+
+        if (request.getCategoryIds() != null) {
+            game.setCategories(categoryRepository.findAllById(request.getCategoryIds()));
+        }
+
+        return mapToDTO(gameRepository.save(game));
+    }
+
+    //DELETE
+    public void deleteGame(Long id) {
+        gameRepository.deleteById(id);
     }
 
     //funkcja do mapowania na dto
