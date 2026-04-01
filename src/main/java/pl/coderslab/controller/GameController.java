@@ -26,7 +26,7 @@ public class GameController {
 
     // GET http://localhost:8080/api/games/1
     @GetMapping("/{id}")
-    public GameResponseDTO getGameById(@PathVariable Long id) {
+    public GameResponseDTO getGameById(@PathVariable("id") Long id) {
         return gameService.getGameById(id);
     }
 
@@ -36,12 +36,12 @@ public class GameController {
     }
 
     @PutMapping("/{id}")
-    public GameResponseDTO updateGame(@PathVariable Long id, @RequestBody GameRequestDTO request) {
+    public GameResponseDTO updateGame(@PathVariable("id") Long id, @RequestBody GameRequestDTO request) {
         return gameService.updateGame(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteGame(@PathVariable Long id) {
+    public void deleteGame(@PathVariable("id") Long id) {
         gameService.deleteGame(id);
     }
 }

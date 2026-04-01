@@ -115,7 +115,7 @@ public class GameService {
 
         //  wyliczanie średniej ocen dla gry
         Double avg = ratingRepository.getAverageRating(game.getId());
-        dto.setAverageRating(avg != null ? Math.round(avg * 100.0) / 100.0 : 0.0); // Zaokrąglamy do 2 miejsc
+        dto.setAverageRating(avg != null ? Math.round(avg * 100.0) / 100.0 : 0.0);
 
         return dto;
     }

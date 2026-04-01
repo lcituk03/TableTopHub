@@ -12,4 +12,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     // wybiera gry na dana ilosc graczy
     @Query("SELECT g FROM Game g WHERE g.minPlayers <= :count AND g.maxPlayers >= :count")
     List<Game> findByPlayerCount(@Param("count") int count);
+
+    List<Game> findAllByPublisherId(Long publisherId);
 }
