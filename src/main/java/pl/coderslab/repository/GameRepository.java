@@ -14,4 +14,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> findByPlayerCount(@Param("count") int count);
 
     List<Game> findAllByPublisherId(Long publisherId);
+
+    List<Game> findAllByCategoriesId(Long categoryId);
 }

@@ -25,19 +25,12 @@ public class PublisherService {
     public PublisherResponseDTO getById(Long id) {
         Publisher publisher = publisherRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Nie znaleziono publishera o id: " + id));
-
         return mapToDTO(publisher);
     }
 
     public List<PublisherResponseDTO> getAll() {
-        return publisherRepository.findAll().stream().map(p -> {
-            PublisherResponseDTO dto = new PublisherResponseDTO();
-            dto.setId(p.getId());
-            dto.setName(p.getName());
-            // ile ma gier ten publisher:
-            dto.setNumberOfGames(gameRepository.findAllByPublisherId(p.getId()).size());
-            return dto;
-        }).collect(Collectors.toList());
+        return publisherRepository.findAll().stream()
+                .map(this::mapToDTO).collect(Collectors.toList());
     }
 
     //CREATE
@@ -67,6 +60,8 @@ public class PublisherService {
         PublisherResponseDTO dto = new PublisherResponseDTO();
         dto.setId(p.getId());
         dto.setName(p.getName());
+        // ile ma gier ten publisher:
+        dto.setNumberOfGames(gameRepository.findAllByPublisherId(p.getId()).size());
         return dto;
     }
 
