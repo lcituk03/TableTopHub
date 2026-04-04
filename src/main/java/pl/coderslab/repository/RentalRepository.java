@@ -15,5 +15,8 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
 
     List<Rental> findAllByUserId(Long userId);
 
-    Long user(User user);
+    //ile user ma wypozyczen (wszystkich)
+    long countByUserId(Long userId);
+
+
 }
