@@ -87,6 +87,10 @@ public class GameService {
 
     //DELETE
     public void deleteGame(Long id) {
+
+        if (!gameRepository.existsById(id)) {
+            throw new RuntimeException("Nie można usunąć gry o id:  " + id + " taka gra nie istnieje!");
+        }
         gameRepository.deleteById(id);
     }
 

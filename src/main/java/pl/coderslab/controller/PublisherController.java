@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dto.GameResponseDTO;
@@ -30,12 +31,12 @@ public class PublisherController {
     }
 
     @PostMapping
-    public PublisherResponseDTO create(@RequestBody PublisherRequestDTO req) {
+    public PublisherResponseDTO create(@RequestBody @Valid PublisherRequestDTO req) {
         return publisherService.create(req);
     }
 
     @PutMapping("/{id}")
-    public PublisherResponseDTO update(@PathVariable("id") Long id, @RequestBody PublisherRequestDTO req){
+    public PublisherResponseDTO update(@PathVariable("id") Long id, @RequestBody @Valid PublisherRequestDTO req){
         return publisherService.update(id,req);
     }
 

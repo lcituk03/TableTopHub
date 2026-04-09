@@ -78,6 +78,9 @@ public class UserService {
 
     //DELETE
     public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("Nie można usunąć usera o id:  " + id + " taki user nie istnieje!");
+        }
         userRepository.deleteById(id);
     }
 

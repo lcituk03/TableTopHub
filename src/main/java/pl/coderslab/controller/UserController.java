@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dto.UserRequestDTO;
 import pl.coderslab.dto.UserResponseDTO;
@@ -28,12 +29,12 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResponseDTO create(@RequestBody UserRequestDTO req) {
+    public UserResponseDTO create(@RequestBody @Valid UserRequestDTO req) {
         return userService.createUser(req);
     }
 
     @PutMapping("/{id}")
-    public UserResponseDTO update(@PathVariable("id") Long id, @RequestBody UserRequestDTO req) {
+    public UserResponseDTO update(@PathVariable("id") Long id, @RequestBody @Valid UserRequestDTO req) {
         return userService.updateUser(id, req);
     }
 

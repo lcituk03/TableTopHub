@@ -14,7 +14,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Tytuł jest wymagany")
+//    @NotBlank(message = "Tytuł jest wymagany")
     private String title;
 
     private int minPlayers;

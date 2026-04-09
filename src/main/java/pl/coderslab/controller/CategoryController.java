@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dto.CategoryRequestDTO;
 import pl.coderslab.dto.CategoryResponseDTO;
@@ -28,12 +29,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponseDTO create(@RequestBody CategoryRequestDTO req){
+    public CategoryResponseDTO create(@RequestBody @Valid CategoryRequestDTO req){
         return categoryService.create(req);
     }
 
     @PutMapping("/{id}")
-    public CategoryResponseDTO update(@PathVariable("id") Long id, @RequestBody CategoryRequestDTO req){
+    public CategoryResponseDTO update(@PathVariable("id") Long id, @RequestBody @Valid CategoryRequestDTO req){
         return categoryService.update(id,req);
     }
 

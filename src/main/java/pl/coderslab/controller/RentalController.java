@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dto.RentalRequestDTO;
 import pl.coderslab.dto.RentalResponseDTO;
@@ -31,9 +32,8 @@ public class RentalController {
         return rentalService.getAllActiveUserRentals(userId);
     }
 
-
     @PostMapping("/rent")
-    public RentalResponseDTO rentGame(@RequestBody RentalRequestDTO req){
+    public RentalResponseDTO rentGame(@RequestBody @Valid RentalRequestDTO req){
         return rentalService.rentGame(req);
     }
 

@@ -15,7 +15,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nazwa kategorii nie może być pusta")
+//    @NotBlank(message = "Nazwa kategorii nie może być pusta")
     private String name;
 
     @ManyToMany(mappedBy = "categories")

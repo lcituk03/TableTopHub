@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dto.GameRequestDTO;
@@ -31,12 +32,12 @@ public class GameController {
     }
 
     @PostMapping
-    public GameResponseDTO createGame(@RequestBody GameRequestDTO request) {
+    public GameResponseDTO createGame(@RequestBody @Valid GameRequestDTO request) {
         return gameService.createGame(request);
     }
 
     @PutMapping("/{id}")
-    public GameResponseDTO updateGame(@PathVariable("id") Long id, @RequestBody GameRequestDTO request) {
+    public GameResponseDTO updateGame(@PathVariable("id") Long id, @RequestBody @Valid GameRequestDTO request) {
         return gameService.updateGame(id, request);
     }
 

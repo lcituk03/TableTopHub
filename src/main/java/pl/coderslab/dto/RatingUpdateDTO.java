@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class RatingUpdateDTO {
 
-    @Min(1)
-    @Max(10)
+    @Min(value = 1, message = "Minimalna ocena to 1")
+    @Max(value = 10, message = "Maksymalna ocena to 10")
     private int score;
 }

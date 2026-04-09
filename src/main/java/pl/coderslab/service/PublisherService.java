@@ -52,6 +52,10 @@ public class PublisherService {
 
     //DELETE
     public void delete(Long id) {
+
+        if (!publisherRepository.existsById(id)) {
+            throw new RuntimeException("Nie można usunąć publishera o id:  " + id + " taki publisher nie istnieje!");
+        }
         publisherRepository.deleteById(id);
     }
 

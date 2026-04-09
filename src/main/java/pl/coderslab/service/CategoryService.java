@@ -51,6 +51,9 @@ public class CategoryService {
 
     //DELETE
     public void delete(Long id) {
+        if (!categoryRepository.existsById(id)) {
+            throw new RuntimeException("Nie można usunąć kategorii o id:  " + id + " taka kategoria nie istnieje!");
+        }
         categoryRepository.deleteById(id);
     }
 

@@ -16,7 +16,7 @@ public class Publisher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nazwa wydawcy nie może być pusta")
+//    @NotBlank(message = "Nazwa wydawcy nie może być pusta")
     private String name;
 
 }

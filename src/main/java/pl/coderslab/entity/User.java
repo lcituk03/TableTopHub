@@ -13,11 +13,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Username jest wymagany")
+//    @NotBlank(message = "Username jest wymagany")
     private String username;
 
-    @Email(message = "Podaj poprawny e-mail")
-    @NotBlank
+//    @Email(message = "Podaj poprawny e-mail")
+//    @NotBlank
     private String email;
 
     private String membershipType;

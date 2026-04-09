@@ -62,6 +62,10 @@ public class RatingService {
 
     //DELETE
     public void deleteRating(Long ratingId){
+        if (!ratingRepository.existsById(ratingId)) {
+            throw new RuntimeException("Nie można usunąć ratingu o id:  " + ratingId + " taki rating nie istnieje!");
+        }
+
         ratingRepository.deleteById(ratingId);
     }
 

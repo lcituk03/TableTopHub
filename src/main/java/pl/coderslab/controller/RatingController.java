@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dto.RatingRequestDTO;
 import pl.coderslab.dto.RatingResponseDTO;
@@ -23,12 +24,12 @@ public class RatingController {
     }
 
     @PostMapping
-    public RatingResponseDTO addRating(@RequestBody RatingRequestDTO req) {
+    public RatingResponseDTO addRating(@RequestBody @Valid RatingRequestDTO req) {
         return ratingService.addRating(req);
     }
 
     @PutMapping("/{id}")
-    public RatingResponseDTO updateRating(@PathVariable("id") Long id, @RequestBody RatingUpdateDTO req) {
+    public RatingResponseDTO updateRating(@PathVariable("id") Long id, @RequestBody @Valid RatingUpdateDTO req) {
         return ratingService.updateRating(id, req);
     }
 
